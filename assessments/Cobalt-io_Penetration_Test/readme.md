@@ -1,6 +1,60 @@
-## Summary
+## Assessment Summary
+A gray box penetration test of the PathCheck - GAEN-Mobile App mobile application was conducted in order to assess its risk posture and identify security issues that could negatively affect PathCheck's data, systems, or reputation. The scope of the assessment covered PathCheck gaen-mobile External iOS Beta version 1378 and PathCheck gaen-mobile Google Alpha Closed 1.0.3. The pentest was conducted by 2 pentester(s) between Sep 29, 2020 and Oct 13, 2020.
+
+This penetration test was a manual assessment of the security of the application’s functionality, business logic, and vulnerabilities such as those catalogued in the OWASP Top 10. The assessment also included a review of security controls and requirements listed in the OWASP Mobile Application Security Verification Standard (MASVS). The pentesters leveraged tools to facilitate their work; however, the majority of the assessment involves manual analysis.
+
+**Overall, the pentesters found that the application exhibits a good security posture during the assessment. The application is well built, with many security best practices in place. No major issues were discovered during the test because of this.** 
 
 ## Scope
+Coverage
+
+This penetration test was a manual assessment of the security of the app’s functionality, business logic, and vulnerabilities such as those cataloged in the OWASP Top 10. The assessment also included a review of security controls and requirements listed in the OWASP Mobile Application Security Verification Standard (MASVS). The researchers conduct manual analysis assisted by tools.
+
+The mobile application did not authenticate users beyond the device where it was installed and did not send any personally identifiable information (PII) to the server. Therefore, testing related to security controls across roles and permissions did not apply. However, testing related to data security and privacy has been performed, including testing that data is stored securely on the device as well as handled security over the network.
+
+The following is a brief summary of the main tests performed on the mobile application:
+
+* Checks of native components and the source code
+* Exported interface tests for Android applications
+* Reverse engineering of the mobile application
+* OWASP Mobile Top 10 testing
+
+While the server was out of scope for testing, the following is a brief summary of the review performed on the API to make sure that user data was secure over the network:
+
+* Authenticated endpoint testing for missing access control issues
+* Input validation tests
+
+Below is the summary of methodologies used to assess security at mentioned endpoints:
+Inventory of API endpoints:
+
+We inventoried the calls made by the app during all user activities. We then proceeded to analyze requests and responses to observe the underlying technology and any possible vulnerabilities. We observed that no PII is being sent to the server.
+Manual and automated fuzzing of API endpoints:
+
+We proceeded to reverse engineer the endpoints and perform modified calls using manual and automated methods. We attempted the following:
+
+* Parameter manipulation (adding / modifying parameters to perform new functions, horizontal privilege escalation, etc.)
+* Code injection (SQL injection attempts, Template injection, Cross Site Scripting attacks, etc.).
+* Conducted testing of data storage for sensitive information disclosure.
+* Tested the apps to ensure cryptographic best practices were adhered to.
+* Performed analysis of local authentication mechanisms used by the applications.
+* Tested network communication security controls such as certificate pinning, the use of TLS for application to API communication, and the security provider that is present on the mobile device. (this was deemed out of scope)
+* Conducted an analysis of the different platform’s (iOS and Android) interaction with the application. These tests focused on the use of intents, IPC, broadcast receivers, services, URL schemes, file transfer mechanisms, etc.
+* Worked to identify code quality and build setting deficiencies such as application signing, debug options, symbols that weren’t properly stripped, verbose logging, exception handling, and any issues stemming from the use of native libraries.
+* Noted the effectiveness of code obfuscation techniques used to limit analysis efforts, and anti-reverse engineering mechanisms such as jailbreak or root detection.
+
+Test Cases that successfully thwarted exploitation
+
+During testing many positive controls were observed the be in place within the application. A brief overview of these includes:
+
+* The JWT token used for verification was secured against common attacks like algorithm manipulation and brute force. The token signature was properly validated.
+* The application does not store any sensitive data locally or send sensitive data to the server.
+* The verification code is not reusable.
+* The application does not expose any sensitive information in logs
+
+Target description
+
+* PathCheck gaen-mobile External iOS Beta version 1378 tested on non-jailbroken iOS 14.0.1, iPhone 11 Pro
+* PathCheck gaen-mobile Google Alpha Closed 1.0.3 tested on Android v 10 Pixel 2
 
 ## Cobalt.io Testing Coverage
 
